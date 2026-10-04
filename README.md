@@ -1,106 +1,444 @@
-# Fintrust_Data-Analytics_Week-2
-Project Overview
-The FinTrust Financial Intelligence & Digital Banking Support Solution is a multidisciplinary project focused on using data and digital tools to understand customer behaviour, transaction activity, data quality, and potential areas for operational improvement within a synthetic digital banking environment.
-During Week 2, the Data Analytics track focused on practical data preparation, validation, exploratory analysis, SQL-based business analysis, and dashboard development. The analysis used FinTrust's customer and transaction datasets covering January to March 2026.
-The objective was to transform the raw datasets into validated information and business insights that can support understanding of transaction patterns, customer segments, digital channels, transaction performance, and areas requiring further review.
-Data Sources
-	Dataset	Records	Purpose
-1	FinTrust Customer Data	1,500	Customer demographics, account information and digital engagement
-2	FinTrust Transaction Data	12,000	Transaction activity, amounts, channels, status and synthetic review labels
-3	FinTrust Data Dictionary	N/A	Definitions and descriptions of dataset fields
-The datasets were provided as synthetic educational data for the FinTrust project. Customer ID was used as the common key for joining customer and transaction information.
-Data Quality and Cleaning
-Data-quality checks were performed before the main analysis. These checks covered record counts, duplicate identifiers, missing values, data types, date ranges and customer-transaction join integrity.
-S/N	Check	Result
-1	Customer records	1,500
-2	Transaction records	12,000
-3	Duplicate Customer IDs	0
-4	Duplicate Transaction IDs	0
-5	Missing Device Type	96
-6	Missing Location	96
-7	Unmatched transaction Customer IDs	0
-8	Transaction period	Jan 1 – Mar 31, 2026
-The 96 missing Device Type values and 96 missing Location values were retained rather than removed because they form part of the provided dataset and were relevant to the data-quality assessment. The missing values should be considered when interpreting analyses involving these fields.
-SQL Analysis
-SQLite- Visual Studio Code was used to perform structured querying and validation of the FinTrust datasets. SQL analysis was used to calculate transaction totals, transaction-type performance, monthly activity, transaction status, channel activity, customer-segment activity, risk-review labels, location activity and international transaction patterns.
+# FinTrust Digital Bank — Data Analytics
 
-S/N	Metric	Result
-1	Total transactions	12,000
-2	Total transaction value	₦560,477,354.85
-3	Average transaction value	₦46,706.45
-4	Successful transactions	10,856
-5	Failed transactions	630
-6	Reversed transactions	326
-7	Pending transactions	188
-8	Risk Review Flag = Yes	2,352 (19.6%)
-9	International transactions	480 (4.0%)
-The SQL validation checks indicate that the customer and transaction data were successfully loaded into SQLite and are structurally consistent for analysis. No duplicate customer or transaction identifiers were found, all transaction records matched a customer record, and transaction totals reconciled with the source data. The identified missing Device_Type and Location values were also confirmed.
+## Financial Intelligence & Digital Banking Support Solution
 
-Python Exploratory Data Analysis
-Jupyter Lab was used for exploratory data analysis using pandas and Matplotlib. The analysis examined customer characteristics, transaction distributions, monthly trends, transaction values, customer segments, channels, transaction types, international transactions and synthetic risk-review labels.
-Key Python observations
-The average customer age is approximately 41.6 years. 
-Average customer tenure is approximately 49.9 months. 
-Average digital engagement score is approximately 68.0. 
-Mobile App is the most common transaction channel. 
-Transfer is the largest transaction type by transaction volume and total value. 
-March recorded the highest monthly transaction value at approximately ₦196.2 million. 
-Everyday customers generated the highest transaction volume and total transaction value. 
-SME customers had the highest average transaction value at approximately ₦49,116. 
-Transactions labelled Risk_Review_Flag = Yes had a higher average transaction value than transactions labelled No. 
+A multidisciplinary data analytics project developed as part of the AnalystLab Africa Experience Lab for FinTrust Digital Bank.
 
-Power BI Dashboard
-A Power BI dashboard was developed to provide an interactive summary of FinTrust transaction performance and customer activity.
-Dashboard KPIs:
-Total Customers: 1.5K
-Total Transaction Value: ₦560.48M 
-Total Transactions: 12K 
-Average Transaction Value: ₦46.71K 
-Transaction Success Rate: 90.47% 
-Dashboard visuals include:
-Monthly Transaction Value 
-Transaction Value by Channel 
-Transaction Value by Customer Segment 
-Average Transaction Value by Customer Segment 
-Transaction Volume by Type 
-Transaction Value by Location 
-Transaction Status Distribution 
-Risk Review Flag Distribution 
+The project uses a synthetic banking dataset to explore transaction behaviour, customer segments, transaction channels, operational performance and synthetic risk-review patterns.
 
-Key Business Findings 
-1.Mobile App is the dominant transaction channel
-Finding: Mobile App is the most heavily used transaction channel.
-Evidence: It recorded 5,102 transactions with a total transaction value of approximately ₦240.1 million, the highest among the channels.
-Business Meaning:
-The Mobile App represents a major part of FinTrust’s digital transaction activity. Its performance and customer experience are therefore important areas for operational monitoring.
-2.Everyday customers generate the highest transaction activity
-Finding: Everyday customers account for the largest share of transaction activity among customer segments.
-Evidence: Everyday customers generated 5,644 transactions worth approximately ₦261.5 million.
-Business Meaning:
-The Everyday segment represents a substantial portion of FinTrust’s transaction activity. Understanding and retaining this customer group could therefore be important for maintaining transaction volume.
-3.SME customers have the highest average transaction value
-Finding: SME customers have the highest average transaction value despite having the lowest transaction volume among the four customer segments.
-Evidence: SME customers recorded an average transaction value of approximately ₦49,116, compared with approximately ₦46,325 for Everyday, ₦45,638 for Premium and ₦46,953 for Student customers.
-Business Meaning:
-Although SMEs generate fewer transactions, their individual transactions tend to involve higher values. This may make the SME segment relevant when examining higher-value transaction activity.
-4.Ibadan records the highest transaction value and average transaction size
-Finding: Ibadan has the highest transaction value and average transaction size among the transaction locations in the dataset.
-Evidence: Ibadan recorded 1,550 transactions, worth approximately ₦81.4 million, with an average transaction value of approximately ₦52,526.
-Business Meaning:
-Transaction activity varies across locations. This provides an opportunity for FinTrust to investigate whether differences in customer behaviour, transaction mix or channel usage could explain the higher transaction values observed in Ibadan.
-5.Risk-review-labelled transactions have higher average values
-Finding: Transactions labelled for risk review have a substantially higher average transaction value than transactions not labelled for review.
-Evidence: The 2,352 risk-review-labelled transactions (19.6%) had an average value of approximately ₦68,786, compared with approximately ₦41,324 for the 9,648 transactions not labelled for review.
-Business Meaning:
-Within this synthetic dataset, the risk-review label is associated with higher-value transactions. This pattern may be useful for further investigation by the relevant risk/data-science teams.
+> **Disclaimer:** This project uses synthetic educational data. The Risk_Review_Flag is a synthetic analytical label and must not be interpreted as evidence of fraud, suspicious activity or actual customer risk.
 
-6.Risk-review-labelled transactions have higher average values
-Finding: Transactions labelled for risk review have a substantially higher average transaction value than transactions not labelled for review.
-Evidence: The 2,352 risk-review-labelled transactions (19.6%) had an average value of approximately ₦68,786, compared with approximately ₦41,324 for the 9,648 transactions not labelled for review.
-Business Meaning:
-Within this synthetic dataset, the risk-review label is associated with higher-value transactions. This pattern may be useful for further investigation by the relevant risk/data-science teams.
-7.Transfers have the highest review-label rate
-Finding: Transfer transactions have the highest proportion of risk-review labels among transaction types.
-Evidence: Approximately 28.5% of transfers were labelled for review, followed by cash withdrawals at 25.3%. Bill payments had the lowest rate at approximately 12.8%.
-Business Meaning:
-Transaction type appears to be associated with different levels of risk-review activity in the synthetic dataset. Transfers and cash withdrawals could therefore be areas for further investigation when examining transaction-review patterns.
+---
+
+## Project Overview
+
+The FinTrust Data Analytics track focuses on transforming banking transaction data into meaningful business insights using:
+
+- SQL
+- Python
+- Power BI
+- Excel
+
+The project follows a progressive development approach across four weeks:
+
+**Week 1 — Understand → Explore → Define → Plan**
+
+**Week 2 — Analyse → Build → Visualise**
+
+**Week 3 — Develop → Improve → Validate → Prepare**
+
+**Week 4 — Final Integration**
+
+---
+
+## Dataset
+
+The dataset contains synthetic customer and transaction records covering:
+
+**January – March 2026**
+
+### Key dataset metrics
+
+| Metric | Value |
+|---|---:|
+| Customers | 1,500 |
+| Transactions | 12,000 |
+| Total Transaction Value | ₦560.48M |
+| Average Transaction Value | ₦46,706.45 |
+| Transaction Success Rate | 90.47% |
+| Synthetic Risk-Review Rate | 19.60% |
+
+---
+
+# Week 1 — Project Foundation
+
+Week 1 focused on understanding the business problem, dataset structure, analytical objectives and proposed solution.
+
+Key activities included:
+
+- Business problem definition
+- Dataset familiarisation
+- Data dictionary review
+- Initial analytical questions
+- Project scope definition
+- Power BI dashboard planning
+- Data analytics workflow planning
+
+The Week 1 submission is available in the `Week-1` folder.
+
+---
+
+# Week 2 — Data Analysis & Dashboard Development
+
+Week 2 focused on practical data analysis and dashboard development.
+
+### Data Quality
+
+The dataset was assessed for:
+
+- Missing values
+- Duplicate records
+- Referential integrity
+- Transaction status distribution
+- Risk-review label distribution
+- Date range consistency
+
+The analysis identified 96 records with missing Device Type and/or Location information. These values were retained rather than artificially imputed because the missingness was considered relevant to the synthetic dataset.
+
+### SQL
+
+SQL was used to perform:
+
+- Transaction summaries
+- Customer segment analysis
+- Channel analysis
+- Transaction status analysis
+- Risk-review analysis
+- Monthly trend analysis
+
+### Python
+
+Python was used for exploratory data analysis and validation using:
+
+- pandas
+- NumPy
+- Matplotlib
+- Seaborn
+
+### Power BI
+
+A business performance dashboard was developed containing:
+
+- KPI cards
+- Monthly transaction trends
+- Transaction value by channel
+- Transaction value by customer segment
+- Transaction status analysis
+- Risk-review analysis
+- Interactive slicers
+
+---
+
+# Week 3 — Advanced Analysis, Validation & Dashboard Improvement
+
+Week 3 focused on moving from descriptive analysis to deeper analysis, validation and refinement.
+
+## Advanced SQL
+
+Eight additional SQL analyses were completed using techniques including:
+
+- JOINs
+- GROUP BY
+- CASE
+- Aggregate functions
+- Subqueries
+- Common Table Expressions (CTEs)
+- Window functions
+- LAG()
+
+### Key SQL analyses
+
+1. Transaction activity by customer segment
+2. Transaction success rate by channel
+3. Failed and reversed transactions by channel
+4. Synthetic Risk-Review Rate by transaction type
+5. Synthetic Risk-Review Rate by channel
+6. Customer transaction frequency
+7. High-value transaction patterns
+8. Monthly transaction trends
+
+---
+
+## Advanced Python EDA
+
+Python was used to independently reproduce and extend the SQL analysis.
+
+Additional analytical outputs included:
+
+- Channel performance
+- Customer segment behaviour
+- Synthetic Risk-Review analysis
+- Monthly transaction trends
+- Customer transaction frequency
+- Channel-level synthetic review analysis
+
+### Python validation
+
+Python confirmed:
+
+- 12,000 transactions
+- ₦560,477,354.85 total transaction value
+- ₦46,706.45 average transaction value
+- 1,500 customers
+- 8.00 average transactions per customer
+
+The Python results were consistent with the SQL analysis.
+
+---
+
+# Power BI Dashboard — Week 3
+
+The Week 3 dashboard was substantially improved to provide deeper business analysis.
+
+## Page 1 — FinTrust Business Performance
+
+### KPI Cards
+
+- Total Customers
+- Total Transactions
+- Total Transaction Value
+- Average Transaction Value
+- Transaction Success Rate
+
+### Visuals
+
+- Monthly Transaction Value
+- Transaction Value by Channel
+- Transaction Value by Customer Segment
+- Transaction Success Rate by Channel
+
+### Filters
+
+- Customer Segment
+- Transaction Type
+- Channel
+- Location
+
+---
+
+## Page 2 — Transaction & Risk Insights
+
+### KPI Cards
+
+- Synthetic Risk-Review Rate — 19.60%
+- Average Transaction Value — ₦46.71K
+- Failed Transactions — 630
+- Reversed Transactions — 326
+- High-Value Transactions — 3.07K
+
+### Visuals
+
+- Synthetic Risk-Review Rate by Transaction Type
+- Synthetic Risk-Review Rate by Channel
+- Failed + Reversed Rate by Channel
+- Transaction Volume by Type
+- Average Transactions per Customer
+- High-Value Transaction Value by Type & Channel
+
+---
+
+## Customer Detail Drill-Through
+
+A customer-level drill-through page was added to allow deeper analysis of individual customer transaction behaviour.
+
+The page includes:
+
+- Customer ID
+- Customer Segment
+- Account Status
+- Preferred Channel
+- Total Transactions
+- Total Transaction Value
+- Average Transaction Value
+- Transaction Success Rate
+
+The drill-through functionality was tested successfully.
+
+---
+
+# Key Validated Findings
+
+### 1. Customer Segment Behaviour
+
+Everyday customers generated the highest transaction volume and total transaction value.
+
+SME customers recorded the highest average transaction value at:
+
+**₦49,115.69**
+
+---
+
+### 2. Channel Success Performance
+
+ATM recorded the highest transaction success rate:
+
+**91.70%**
+
+Mobile App recorded the lowest:
+
+**89.75%**
+
+Despite this, Mobile App processed the highest number of transactions:
+
+**5,102**
+
+---
+
+### 3. Failed & Reversed Transactions
+
+USSD recorded the highest combined failed and reversed transaction rate:
+
+**8.66%**
+
+Mobile App recorded a very similar rate:
+
+**8.64%**
+
+However, Mobile App had the highest absolute number of failed and reversed transactions because of its much higher transaction volume.
+
+---
+
+### 4. Synthetic Risk-Review by Transaction Type
+
+Transfer had the highest synthetic review-label rate:
+
+**28.49%**
+
+Cash Withdrawal followed at:
+
+**25.31%**
+
+The Risk-Review Flag is synthetic educational data and is not interpreted as actual fraud or customer risk.
+
+---
+
+### 5. Synthetic Risk-Review by Channel
+
+Web recorded the highest synthetic review-label rate:
+
+**21.35%**
+
+ATM followed at:
+
+**21.18%**
+
+---
+
+### 6. Customer Transaction Frequency
+
+All 1,500 customers recorded transaction activity.
+
+Average transactions per customer:
+
+**8.00**
+
+Maximum transactions for one customer:
+
+**20**
+
+---
+
+### 7. High-Value Transaction Patterns
+
+Transactions above the overall average transaction value of ₦46,706.45 were classified as high-value for exploratory analysis.
+
+High-value transactions:
+
+**3,071**
+
+Transfer + Mobile App generated the largest high-value transaction total:
+
+**₦93.45M**
+
+The threshold is analytical and dataset-derived, not regulatory.
+
+---
+
+### 8. Monthly Transaction Trend
+
+February recorded the lowest monthly transaction value:
+
+**₦175.79M**
+
+March recovered to the highest:
+
+**₦196.20M**
+
+This pattern was independently validated using SQL and Python.
+
+---
+
+# Management Recommendations
+
+Based on the validated findings, the following recommendations were developed:
+
+1. Review Mobile App transaction reliability because it processes the highest transaction volume while recording the lowest success rate.
+
+2. Investigate USSD failed and reversed transactions to identify recurring operational patterns.
+
+3. Use transaction type and channel breakdowns to support further analytical monitoring of synthetic review-label concentrations.
+
+4. Develop customer-segment-specific engagement strategies based on observed transaction behaviour.
+
+5. Monitor monthly transaction volume and value to identify significant changes and support operational planning.
+
+6. Use customer-level drill-through to support deeper analysis of transaction behaviour without making unsupported conclusions about customer risk or financial health.
+
+---
+
+# Testing & Validation
+
+Week 3 included several refinement and validation tests.
+
+| Test | Result |
+|---|---|
+| Risk-Review breakdown | Passed |
+| Channel performance validation | Passed |
+| Customer drill-through | Passed |
+| High-value transaction analysis | Passed |
+| Monthly trend validation | Passed |
+
+Major findings were cross-checked across SQL, Python and Power BI where applicable.
+
+---
+
+# Challenges
+
+Key challenges during Week 3 included:
+
+- Temporary loss of access to the original laptop.
+- Recreating the SQLite and Python environments on another laptop.
+- Rebuilding the Power BI dashboard.
+- Maintaining consistency across SQL, Python and Power BI outputs.
+
+These challenges were resolved by transferring the required project files, recreating the analytical environment and cross-validating key results.
+
+---
+
+# Limitations
+
+- The dataset is synthetic and intended for educational purposes.
+- The analysis covers only January–March 2026.
+- Device Type and Location contain missing values.
+- The Risk-Review Flag is synthetic and cannot be interpreted as actual fraud or risk detection.
+- The high-value threshold is dataset-derived and not regulatory.
+- Transaction frequency and value cannot be interpreted as income, profitability, account balance or financial health.
+- The analysis identifies patterns and associations rather than causation.
+- External operational data was not available to explain monthly or channel-level variations.
+
+---
+
+# Tools & Technologies
+
+- Excel
+- SQLite
+- SQL
+- Python
+- pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Power BI
+
+---
+
+# Project Structure
+
+```text
+FinTrust-Data-Analytics/
+│
+├── Week-1/
+├── Week-2/
+├── Week-3/
+├── Data/
+└── README.md
